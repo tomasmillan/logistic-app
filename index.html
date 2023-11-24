@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>Invoice maker and Geolocation Template</title>
+  </head>
+  <body>
+    <header>
+      <h1>Webapp de Logistica</h1>
+    </header>
+    <main>
+      <section class="invoice">
+        <form id="invoiceForm">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" required />
+          <label for="address">Dirección:</label>
+          <input type="text" id="address" name="address" required />
+
+          <label for="street">Calle:</label>
+          <input type="text" id="street" name="street" required />
+
+          <label for="postal-code">Código Postal:</label>
+          <input type="text" id="postal-code" name="postalCode" required />
+
+          <label for="city">Ciudad:</label>
+          <input type="text" id="city" name="city" required />
+
+          <label for="country">País:</label>
+          <input type="text" id="country" name="country" required />
+
+          <label for="phone">Teléfono:</label>
+          <input type="tel" id="phone" name="phone" required />
+          <div class="checkbox">
+            <label for="checkbox">Cantidad de uco mas de 10 tneladas</label>
+            <input type="checkbox" id="checkbox" name="checkbox" />
+          </div>
+
+          <label for="recipient-notes"
+            >Destinatario del UCO (punto de recogida):</label
+          >
+          <textarea id="recipient-notes" name="recipientNotes"></textarea>
+
+          <label for="date" name="date">Fecha:</label>
+          <input type="date" id="date" name="date" required />
+
+          <label for="digital-signature">Firma Digital:</label>
+          <input
+            type="text"
+            id="digital-signature"
+            name="digitalSignature"
+            required
+          />
+
+          <button type="submit" onclick="generateInvoice()">
+            Generar Factura
+          </button>
+        </form>
+      </section>
+      <section id="invoicePreview">
+        <h2>Factura Generada</h2>
+        <div id="invoiceContent"></div>
+      </section>
+
+      <section class="product-search">
+        <label for="product-code">Ingrese el código del producto:</label>
+        <input type="text" id="product-code" />
+        <button onclick="searchProduct()">Buscar Producto</button>
+        <div id="product-info"></div>
+      </section>
+
+      <section class="geoLocation"></section>
+    </main>
+    <div id="map"></div>
+    <div id="details"></div>
+    <script type="text/javascript" src="script.js"></script>
+    <script>
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+
+        map.innerHTML = `<iframe width="700" height="300" 
+          src="http://maps.google.com/maps?q=${latitude},${longitude}&amp;z=15&amp;output=embed"></iframe>`;
+      });
+
+      var reqcount = 0;
+
+      navigator.geolocation.watchPosition(
+        successCallback,
+        errorCallback,
+        options
+      );
+
+      function successCallback(position) {
+        const { accuracy, latitude, longitude, altitude, heading, speed } =
+          position.coords;
+
+        reqcount++;
+        details.innerHTML = `Acurracy: ${accuracy}<br>`;
+        details.innerHTML += `Latitude: ${latitude}<br>`;
+        details.innerHTML += `Longitude: ${longitude}<br>`;
+        details.innerHTML += `Altitude: ${altitude}<br>`;
+        details.innerHTML += `Heading: ${heading}<br>`;
+        details.innerHTML += `Speed: ${speed}<br>`;
+        details.innerHTML += `Reqcount: ${reqcount}<br>`;
+      }
+
+      function errorCallback(error) {}
+
+      var options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximunAge: 0,
+      };
+    </script>
+  </body>
+</html>

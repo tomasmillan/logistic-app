@@ -1,0 +1,43 @@
+#invoiceConten {
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+#invoiceContent p, .regulaciones, .fechayfirma p {
+    border: 1px solid   #000;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.fechayfirma { 
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+#invoiceForm {
+    margin: 10px;
+    display: flex;
+    flex-flow: column;
+    gap: 4px;
+    justify-content: center;
+}
+label {
+    font-weight: 600;
+}
+.checkbox {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 20rem;
+    border: 1px solid #000;
+    padding: 8px 1px;
+}
+
+#invoiceForm button {
+    margin-top: 10px;
+    padding: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+.product-search {
+    margin: 1rem 0;
+}
